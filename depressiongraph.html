@@ -180,10 +180,9 @@
     <p>The MDI is designed to be taken every two weeks for the duration of your treatment.</p>
     <p><strong>You've already got a reminder set for Sat, Apr. 29.</strong></p>
     <label class="remindin">
-    <input type="checkbox" id="reminder" name="reminder">
+    <!-- <input type="checkbox" id="reminder" name="reminder"> -->
     <strong>Cancel my existing reminder and set a new one for two weeks from now.</strong>
     </label>
-    <input type="hidden" id="remindemail" name="remindemail" value="allankh@gmail.com">
     <br>
     <button class="btn btn-large btn-primary">Submit Inventory</button>
 
@@ -201,18 +200,37 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
         integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
         crossorigin="anonymous"></script>
-<script src="//cdn.jsdelivr.net/pouchdb/6.1.2/pouchdb.min.js"></script>
+<script src="https://cdn.jsdelivr.net/pouchdb/6.1.2/pouchdb.min.js"></script>
 <script>
 $(document).ready(function(){
 
-var db = new PouchDB('inventoriessss');
-
+var db = new PouchDB('inventories');
+// 1 + 2 + 3 + 4 + 5 + 6 + 7 + (8a or 8b) + 9 (10a or 10b)
+// low-spirits=4
+// lost-interest=4
+// lacking-energy=4
+// less-self-confident=4
+// bad-conscience=4
+// not-worth-living=4
+// difficulty-concentrating=4
+// very-restless=4
+// subdued-or-slowed=4
+// trouble-sleeping=4
+// reduced-appetite=4
+// increased-appetite=4
 $('#inventory-form').submit(function(e){
 	e.preventDefault();
 	data = jQuery(this).serialize();
-	console.log(data);
+  // data = jQuery(this).serializeArray();
+  // console.log(dataFoo);
+  // scores = data.split('&');
+  // scores.forEach(function(element) {
+  //   console.log(element);
+  // });
+	// console.log(data);
+  rightnow = new Date().getTime();
 	var doc = {
-		"_id": "thefucki2",
+		"_id": rightnow.toString(),
 		"date": "2017-04-18",
 		"results": data,
 	};
