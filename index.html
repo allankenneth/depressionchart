@@ -16,7 +16,7 @@
   .questiontext {font-size: 1.6em; font-weight: 200; margin: 0 0 .5em 0;}
   </style>
 </head>
-<body data-spy="scroll" data-offset="210" data-target="#inventory-questions" data-offset="0" class="scrollspy">
+<body>
 
   <nav id="inventory-questions" class="navbar fixed-top navbar-light bg-faded">
     <a class="navbar-brand" href="index.html">Depression Graph</a>
@@ -34,8 +34,14 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
         integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
         crossorigin="anonymous"></script>
+<script src="//cdn.jsdelivr.net/pouchdb/6.1.2/pouchdb.min.js"></script>
 <script>
 $(document).ready(function(){
+
+var db = new PouchDB('inventoriessss');
+db.get('thefuck').then(function (doc) {
+  console.log(doc);
+});
 });
 </script>
 </body>
