@@ -19,10 +19,34 @@
 <body>
 
   <nav id="inventory-questions" class="navbar fixed-top navbar-light bg-faded">
-    <a class="navbar-brand" href="index.html">Depression Graph</a>
+    <span class="navbar-brand">Depression Graph</span>
   </nav>
 <div class="container">
+<p>This app is still in very early development. It gives you a score, but not much else (it doesn't even display past results). Yet.</p>
 <a href="depressiongraph.html" class="btn btn-success">Take Test</a>
+<hr>
+<h2>Graph.</h2>
+<p>Each of your inventories is archived, its score graphed on a chart. Watch your progression over time and help determine the course of your treatment.</p>
+<h2>Share.</h2>
+<p>Email the results of individual tests to whomever you choose, including your doctor or loved ones; help them help you.</p>
+<h2>Get Better.</h2>
+<p>Having a stable reminder of your progress can help bolster confidence in your treatment, and maybe even help speed it along.</p>
+<h3>What is the MDI?</h3>
+<blockquote>
+<p>The Major Depression Inventory (MDI) is a self-report mood questionnaire developed by the World Health Organization. The instrument was constructed by a team led by Professor Per Bech, a psychiatrist based at Frederiksborg General Hospital in Denmark.[1] The MDI differs from many other self-report inventories, such as the Beck Depression Inventory (BDI), because it is able to generate an ICD-10 or DSM-IV diagnosis of depression in addition to an estimate of symptom severity.[2][3]</p>
+<p>Unlike many other similar instruments, the MDI is available free of charge and can be downloaded from the internet with a full manual and scoring instructions. This makes it an attractive option in epidemiological population surveys. It has also been translated into seven languages.</p>
+<cite>From Wikipedia.</cite>
+</blockquote>
+<h3>What is Depression Graph?</h3>
+<!--Depression Graph is an application written by me as a side-project to help me learn the Python programming language and to help with my own depression. I'm a front-end web developer by trade, and this project seemed natural.
+-->
+<p>DepressionGraph.com renders, specifically, Major Depression Inventory scores, not a DSM IV score. I have plans to incorporate both scores into the system, but for now, the following formula is used to determine your scores:</p>
+<p>1 + 2 + 3 + 4 + 5 + 6 + 7 + (8a or 8b) + 9 (10a or 10b)</p>
+<div>
+  <a class="twitter-timeline" data-dnt=true href="https://twitter.com/depressiongraph" data-widget-id="252098464379445248">Tweets by @depressiongraph</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</div>
+
 </div> <!-- /.cotnainer -->
 <hr>
 <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
@@ -38,7 +62,7 @@
 <script>
 $(document).ready(function(){
 
-var db = new PouchDB('inventoriessss');
+var db = new PouchDB('inventories');
 db.allDocs({include_docs: true, descending: true}, function(err, doc) {
   console.log(doc.rows);
 });
