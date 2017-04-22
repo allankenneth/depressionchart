@@ -175,24 +175,8 @@
     <label><input type="radio" id="increased-appetite6" name="increased-appetite" value="0"> At no time</label>
 
   </div>
-  <div id="remind">
-
-    <p>The MDI is designed to be taken every two weeks for the duration of your treatment.</p>
-    <ul>
-      <li>0 - 20: Not Depressed</li>
-      <li>20 - 25: Mildly Depressed</li>
-      <li>25 - 30: Moderately Depressed</li>
-      <li>30 - 50: Severly Depressed</li>
-    </ul>
-    <!--<p><strong>You've already got a reminder set for Sat, Apr. 29.</strong></p>-->
-<!--    <label class="remindin">-->
-    <!-- <input type="checkbox" id="reminder" name="reminder"> -->
-    <!-- <strong>Cancel my existing reminder and set a new one for two weeks from now.</strong>
-    </label>
-    <br>-->
     <button class="btn btn-large btn-primary">Submit Inventory</button>
 
-  </div> <!-- /#reminder -->
 </form>
 
 <div> <!-- /.cotnainer -->
@@ -209,20 +193,16 @@
 <script>
 $(document).ready(function(){
 
-$('#inventory-questions').bind('click', 'ul li a', function(event) {
+$('.nav-item').on('click', function(event) {
 	event.preventDefault();
-        $.scrollTo(event.target.hash, 250, {offset:-170,});
+        $.scrollTo(event.target.hash, 250, {offset:-160,});
 });
 $('.question input').on('change', function(event) {
 	nextQuestion = $(this).closest('.question').next();
-        $.scrollTo(nextQuestion, 250, {offset:-170,});
+        $.scrollTo(nextQuestion, 250, {offset:-160,});
 });
 
-
-
-
 var db = new PouchDB('inventories');
-// 1 + 2 + 3 + 4 + 5 + 6 + 7 + (8a or 8b) + 9 (10a or 10b)
 // low-spirits=4
 // lost-interest=4
 // lacking-energy=4
@@ -237,54 +217,54 @@ var db = new PouchDB('inventories');
 // increased-appetite=4
 $('#inventory-form').submit(function(e){
 	e.preventDefault();
-	//data = jQuery(this).serialize();
-  data = jQuery(this).serializeArray();
-  // console.log(dataFoo);
-  //scores = data.split
-  foobar = 0;
-  tempscore = 0;
-  data.forEach(function(element, index) {
-    score = parseInt(element['value']);
-
-firstThree = 0;
-firstThreeCount = 0;
-if(index<3) {
-	if(score>=4) firstThreeCount = firstThreeCount + 1;
-}
-if(firstThreeCount > 2) firstThree = 1;
-
-
-
-
-
-    if(index==7) {
-      eight = score;
-    } else if (index==8) {
-      if(score > eight) eight = score;
-    } else if (index==10) {
-      ten = score;
-    } else if (index==11) {
-      if(score > ten) ten = score;
-    } else {
-      tempscore = tempscore + score;
-    }
-
-  });
-  total = tempscore + eight + ten;
-
-  if(total<20) diagnose = "Not Depressed";
-  if(total>20 && total<25) diagnose = "Mildly Depressed";
-  if(total>25 && total<30) diagnose = "Moderately Depressed";
-  if(total>30) diagnose = "Severely Depressed";
-  rightnow = new Date().getTime();
-   var doc = {
- 	"_id": rightnow.toString(),
- 	"date": rightnow.toString(),
- 	"score": total,
-  };
-  db.put(doc);
-  message = "Your score: " + total + ". " + diagnose + ".";
-  alert(message);
+	data = jQuery(this).serializeArray();
+	tempscore = 0;
+	firstThree = 0;
+	lastSeven = 0;
+	data.forEach(function(element, index) {
+		score = parseInt(element['value']);
+		// Produce an ICD-10 diagnoses
+		// TODO fix this
+		if(index <= 2) {
+			if(score >= 4) firstThree = firstThree + 1;
+		}
+		if(index >= 3) {
+			if(score >= 3) lastSeven = lastSeven + 1;
+		}
+		// End ICD-10; from here below is the simple sum of all questions
+		if(index==7) {
+			eight = score;
+		} else if (index==8) {
+			if(score > eight) eight = score;
+		} else if (index==10) {
+			ten = score;
+		} else if (index==11) {
+			if(score > ten) ten = score;
+		} else {
+			tempscore = tempscore + score;
+		}
+	});
+	ICDdiagnose = "Not Depressed";
+	if(firstThree >= 2 && lastSeven == 3) ICDdiagnose = "Mild Depression";
+	if(firstThree >= 2 && lastSeven >= 4) ICDdiagnose = "Moderate Depression";
+	if(firstThree == 3 && lastSeven >= 5) ICDdiagnose = "Severe Depression";
+	//if(firstThree >= 2 && lastSeven >= 3) ICDdiagnose = "Major Depression";
+	
+	// Summative scoring:
+	total = tempscore + eight + ten;
+	if(total<20) diagnose = "Not Depressed";
+	if(total>20 && total<25) diagnose = "Mildly Depressed";
+	if(total>25 && total<30) diagnose = "Moderately Depressed";
+	if(total>30) diagnose = "Severely Depressed";
+	//rightnow = new Date().getTime();
+	//var doc = {
+	//	"_id": rightnow.toString(),
+	//	"date": rightnow.toString(),
+	//	"score": total,
+	//};
+	//db.put(doc);
+	message = "Your score: " + total + ". " + diagnose + ".";
+	alert(message);
 });
 
 });

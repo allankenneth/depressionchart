@@ -23,7 +23,7 @@
   </nav>
 <div class="container">
 <p>This app is still in very early development. It gives you a score, but not much else (it doesn't even display past results). Yet.</p>
-<a href="depressiongraph.html" class="btn btn-primary btn-lg">Take An Inventory</a>
+<a href="depressiongraph.html" class="btn btn-primary btn-lg">Take Questionnaire</a>
 <hr>
 <!--<h2>Graph.</h2>
 <p>Each of your inventories is archived, its score graphed on a chart. Watch your progression over time and help determine the course of your treatment.</p>
@@ -38,6 +38,7 @@
 <cite><a href="https://en.wikipedia.org/wiki/Major_Depression_Inventory">Wikipedia</a></cite>
 </blockquote>
 <h3>Scoring</h3>
+<p>To measure treatment outcome the sum of the ten items is used. A higher score signifies deeper depression.</p>
 <p>When using the scale to diagnose depression according to ICD-10, there are the following possibilities:</p>
 <p><strong>Mild depression:</strong> A score of 4 or 5 in two of the first three items. Plus a score of at least 3 on two or three of the last seven items.</p>
 <p><strong>Moderate depression:</strong> A score of 4 or 5 in two or three of the first three items. Plus a score of at least 3 on four of the last seven items.</p>
@@ -46,8 +47,8 @@
 <h3>Depression <em>Graph</em>?</h3>
 <!--Depression Graph is an application written by me as a side-project to help me learn the Python programming language and to help with my own depression. I'm a front-end web developer by trade, and this project seemed natural.
 -->
-<p>DepressionGraph.com renders, specifically, Major Depression Inventory scores, not a DSM IV score. I have plans to incorporate both scores into the system, but for now, the following formula is used to determine your scores:</p>
-<p>1 + 2 + 3 + 4 + 5 + 6 + 7 + (8a or 8b) + 9 (10a or 10b)</p>
+<p>DepressionGraph.com renders, specifically, a summative score of the ten questions (the higher score of 8a/b and 10a/b is used) in the MDI, but currently <em>not a ICD-10 diagnoses</em>. I have plans to incorporate both aspects of the inventory into the system, but the ICD-10 diagnoses algorithm isn't quite solid yet.</p>
+<p>Additionally, DepressgionGraph.com allows you to store your questionnaire results and plots your progress on a timeline, allowin you to get sense of the direction of your treatment. Your results are stored locally on your device; they are not transmitted over the internet. At a further date, I do plan to intgrate an encrypted cloud-based backup service.</p>
 <div><a href="https://github.com/allankenneth/depressiongraph2" class="btn btn-primary btn-lg">On Github</a></div>
 <div>
   <a class="twitter-timeline" data-dnt=true href="https://twitter.com/depressiongraph" data-widget-id="252098464379445248">Tweets by @depressiongraph</a>
