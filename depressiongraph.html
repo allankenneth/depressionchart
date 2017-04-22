@@ -178,6 +178,12 @@
   <div id="remind">
 
     <p>The MDI is designed to be taken every two weeks for the duration of your treatment.</p>
+    <ul>
+      <li>0 - 20: Not Depressed</li>
+      <li>20 - 25: Mildly Depressed</li>
+      <li>25 - 30: Moderately Depressed</li>
+      <li>30 - 50: Severly Depressed</li>
+    </ul>
     <!--<p><strong>You've already got a reminder set for Sat, Apr. 29.</strong></p>-->
 <!--    <label class="remindin">-->
     <!-- <input type="checkbox" id="reminder" name="reminder"> -->
@@ -191,9 +197,7 @@
 
 <div> <!-- /.cotnainer -->
 <hr>
-<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
-        integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
-        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
         integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
         crossorigin="anonymous"></script>
@@ -201,8 +205,21 @@
         integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
         crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/pouchdb/6.1.2/pouchdb.min.js"></script>
+<script src="//cdn.jsdelivr.net/jquery.scrollto/2.1.2/jquery.scrollTo.min.js"></script>
 <script>
 $(document).ready(function(){
+
+$('#inventory-questions').bind('click', 'ul li a', function(event) {
+	event.preventDefault();
+        $.scrollTo(event.target.hash, 250, {offset:-170,});
+});
+$('.question input').on('change', function(event) {
+	nextQuestion = $(this).closest('.question').next();
+        $.scrollTo(nextQuestion, 250, {offset:-170,});
+});
+
+
+
 
 var db = new PouchDB('inventories');
 // 1 + 2 + 3 + 4 + 5 + 6 + 7 + (8a or 8b) + 9 (10a or 10b)
@@ -228,6 +245,18 @@ $('#inventory-form').submit(function(e){
   tempscore = 0;
   data.forEach(function(element, index) {
     score = parseInt(element['value']);
+
+firstThree = 0;
+firstThreeCount = 0;
+if(index<3) {
+	if(score>=4) firstThreeCount = firstThreeCount + 1;
+}
+if(firstThreeCount > 2) firstThree = 1;
+
+
+
+
+
     if(index==7) {
       eight = score;
     } else if (index==8) {
@@ -242,6 +271,11 @@ $('#inventory-form').submit(function(e){
 
   });
   total = tempscore + eight + ten;
+
+  if(total<20) diagnose = "Not Depressed";
+  if(total>20 && total<25) diagnose = "Mildly Depressed";
+  if(total>25 && total<30) diagnose = "Moderately Depressed";
+  if(total>30) diagnose = "Severely Depressed";
   rightnow = new Date().getTime();
    var doc = {
  	"_id": rightnow.toString(),
@@ -249,7 +283,7 @@ $('#inventory-form').submit(function(e){
  	"score": total,
   };
   db.put(doc);
-  message = "Your score: " + total + ". We're working on this constantly.";
+  message = "Your score: " + total + ". " + diagnose + ".";
   alert(message);
 });
 
