@@ -6,8 +6,7 @@
   <meta name="description" content="Depression Graph: Keep track of your major depression inventories. Track, share, get better.">
   <meta name="author" content="Allan Haggett">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-
+  <link rel="stylesheet" href="/bootstrap.min.css">
   <style>
   body {padding: 6em 0; position: relative;}
   label {color: #666; display: block;}
@@ -15,6 +14,25 @@
   .nav-link {padding: .3em;}
   .question {margin: 3em 0;}
   .questiontext {font-size: 1.6em; font-weight: 200; margin: 0 0 .5em 0;}
+  .results {
+  }
+  .yourscore {
+    text-align: center;
+    width: 100%;
+  }
+  .yourscore span {
+    background: #0375D8;
+    border-radius: 50%;
+    color: #FFF;
+    display: block;
+    font-size:40px;
+    height: 100px;
+    margin: auto;
+    padding-top: 20px;
+    text-align: center;
+    width: 100px;
+  }
+  .yourdiagnoses {}
   </style>
 </head>
 <body data-spy="scroll" data-offset="210" data-target="#inventory-questions" data-offset="0" class="scrollspy">
@@ -38,7 +56,8 @@
     <div class="navbar-text">In the past two weeks:</div>
   </nav>
 <div class="container">
-
+<div class="row justify-content-md-center">
+<div class="col">
 <form id="inventory-form" action="/take" method="post">
   <div class="question" id="low-spirits">
 
@@ -176,22 +195,21 @@
     <label><input type="radio" id="increased-appetite6" name="increased-appetite" value="0"> At no time</label>
 
   </div>
-    <button class="btn btn-large btn-primary">Submit Inventory</button>
+    <button class="btn btn-lg btn-block btn-primary">Submit Inventory</button>
+<hr>
+<div class="results"></div>
 <hr>
     <p>This Depression Inventory is designed for screening of major depressive disorder. The Inventory is not designed to make a diagnosis of major depression or take the place of a professional diagnosis or consultation. If your score indicates that you might have depressive disorder please contact with a qualified mental health care professional for further clinical evaluation.</p>
 </form>
-
+</div>
+</div>
 <div> <!-- /.cotnainer -->
 <hr>
-<script src="https://cdn.jsdelivr.net/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
-        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
-        crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
-        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/pouchdb/6.1.2/pouchdb.min.js"></script>
-<script src="//cdn.jsdelivr.net/jquery.scrollto/2.1.2/jquery.scrollTo.min.js"></script>
+<script src="/jquery.min.js"></script>
+<script src="/jquery.scrollTo.min.js"></script>
+<script src="/tether.min.js"></script>
+<script src="/bootstrap.min.js"></script>
+<script src="/pouchdb.min.js"></script>
 <script>
 $(document).ready(function(){
 
@@ -269,26 +287,27 @@ $('#inventory-form').submit(function(e){
 	// ICD-10 score
 	ICDminus = four;
 	if(five > ICDminus) ICDminus = five;
-	ICDtotal = total - ICDminus;
-	ICDmessage = "ICD-10 Score: " + ICDtotal + "ICD Diagnoses: " + ICDdiagnose;
+	ICDscore = total - ICDminus;
+	ICDmessage = "ICD-10 Score: " + ICDscore + ". ICD Diagnoses: " + ICDdiagnose;
 	console.log(ICDmessage);
 	
 	// summative diagnoses
-	if(total<20) diagnose = "Not Depressed";
-	if(total>20 && total<25) diagnose = "Mildly Depressed";
-	if(total>25 && total<30) diagnose = "Moderately Depressed";
-	if(total>30) diagnose = "Severely Depressed";
+	diagnose = "Not Depressed";
+	if(total>=20 && total<25) diagnose = "Mildly Depressed";
+	if(total>=25 && total<30) diagnose = "Moderately Depressed";
+	if(total>=30) diagnose = "Severely Depressed";
 	rightnow = new Date().getTime();
 	var doc = {
 		"_id": rightnow.toString(),
 		"date": rightnow.toString(),
 		"score": total,
 		"diagnoses": diagnose,
-		"ICDdiagnose": ICDdiagnose
+		"ICDdiagnose": ICDdiagnose,
+		"ICDscore": ICDscore
 	};
 	db.put(doc);
-	message = "Your score: " + total + ". " + diagnose + ".";
-	alert(message);
+	message = '<div class="yourscore"><span> ' + total + '</span> ' + diagnose + '</div>';
+	$('.results').hide().html(message).fadeIn();
 });
 
 });

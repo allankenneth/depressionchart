@@ -6,7 +6,7 @@
   <meta name="description" content="Depression Graph: Keep track of your major depression inventories. Track, share, get better.">
   <meta name="author" content="Allan Haggett">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <link rel="stylesheet" href="/bootstrap.min.css">
 
   <style>
   body {padding: 6em 0; position: relative;}
@@ -26,28 +26,30 @@
 <a href="questionnaire.html" class="btn btn-primary btn-lg btn-block">Answer Questionnaire</a>
 </div>
 <div class="row">
-    <div class="col">
-<h1><small class="text-muted">Depression <em>Graph</em>?</small></h1>
+    <div class="col-sm-12">
+<h1>Depression <em>Graph</em>?</h1>
 <!--Depression Graph is an application written by me as a side-project to help me learn the Python programming language and to help with my own depression. I'm a front-end web developer by trade, and this project seemed natural.
 -->
 <p>This app is still in <em>very</em> early development...</p>
 <p>When Depressgion Graph is fully-developed it will allow you to store your MDI questionnaire results and plot your progress on a timeline. This will allow you to get sense of the direction of your treatment and give you and your doctor consistent information to work with. Your results are stored locally on your device; they are not transmitted over the internet. At a further date, there is a plan to intgrate an opt-in encrypted cloud-based backup service.</p>
 <p>The code is open-source <a href="https://github.com/allankenneth/depressiongraph2" class="">on Github</a>, and there are no advertising trackers present on this site anywhere. I have no plans to monetize this service. Your data is yours.</p>
-<p>Currently, you can answer the questions and get an accurate summative score. The app is already storing your results on your device, but I am still building the interface to show you these results on a chart. As well, I still investigating a method by which a reminder may be triggered every two weeks, so that the data is well-paced and consistent.</p>
+<p>Currently, you can answer the questions and get an accurate summative score. The app is already storing your results on your device, but I am still building the interface to show you these results on a chart. As well, I still investigating a method by which a reminder may be triggered every two weeks.</p>
 <p>Depression Graph is <a href="https://allankenneth.com">made by Allan</a>.</p>
     </div>
-    <div class="col">
+    <div class="col-sm-12">
+<hr>
 <!--<h2>Graph.</h2>
 <p>Each of your inventories is archived, its score graphed on a chart. Watch your progression over time and help determine the course of your treatment.</p>
 <h2>Share.</h2>
 <p>Email the results of individual tests to whomever you choose, including your doctor or loved ones; help them help you.</p>
 <h2>Get Better.</h2>
 <p>Having a stable reminder of your progress can help bolster confidence in your treatment, and maybe even help speed it along.</p>-->
-<h1><small class="text-muted">MDI?</small></h1>
-<blockquote>
+<h1>Major Depression Inventory?</h1>
+<blockquote class="blockquote">
+
+<p><cite><a href="https://en.wikipedia.org/wiki/Major_Depression_Inventory">Wikipedia</a></cite> says it well:</p>
 <p>The Major Depression Inventory (MDI) is a self-report mood questionnaire developed by the World Health Organization. The instrument was constructed by a team led by Professor Per Bech, a psychiatrist based at Frederiksborg General Hospital in Denmark.[1] The MDI differs from many other self-report inventories, such as the Beck Depression Inventory (BDI), because it is able to generate an ICD-10 or DSM-IV diagnosis of depression in addition to an estimate of symptom severity.[2][3]</p>
 <p>Unlike many other similar instruments, the MDI is available free of charge and can be downloaded from the internet with a full manual and scoring instructions. This makes it an attractive option in epidemiological population surveys. It has also been translated into seven languages.</p>
-<cite><a href="https://en.wikipedia.org/wiki/Major_Depression_Inventory">Wikipedia</a></cite>
 </blockquote>
 <p>This Depression Inventory is designed for screening of major depressive disorder. The Inventory is not designed to make a diagnosis of major depression or take the place of a professional diagnosis or consultation. If your score indicates that you might have depressive disorder please contact with a qualified mental health care professional for further clinical evaluation.</p>
 </div>
@@ -55,18 +57,12 @@
     <div class="col">
 </div>
 </div>
-</div> <!-- /.cotnainer -->
+</div> <!-- /.container -->
 <hr>
-<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
-        integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
-        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
-        crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
-        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/pouchdb/6.1.2/pouchdb.min.js"></script>
+<script src="/jquery.min.js"></script>
+<script src="/tether.min.js"></script>
+<script src="/bootstrap.min.js"></script>
+<script src="/pouchdb.min.js"></script>
 <script>
 $(document).ready(function(){
 
