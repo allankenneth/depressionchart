@@ -233,6 +233,7 @@ $('.question input').on('change', function(event) {
 });
 
 var db = new PouchDB('inventories');
+//
 // low-spirits=4
 // lost-interest=4
 // lacking-energy=4
@@ -245,6 +246,7 @@ var db = new PouchDB('inventories');
 // trouble-sleeping=4
 // reduced-appetite=4
 // increased-appetite=4
+// 
 $('#inventory-form').submit(function(e){
 	e.preventDefault();
 	data = jQuery(this).serializeArray();
@@ -270,6 +272,7 @@ $('#inventory-form').submit(function(e){
 		//A score on at least five items is required, to be scored as follows: 
 		//the score on the first three items must be at least 4, and on the other items at least 3. 
 		//Either Item 1 or 2 must have a score of 4 or 5.
+		
 		if(index <= 2) {
 			if(score >= 4) firstThree = firstThree + 1;
 		}
@@ -282,7 +285,7 @@ $('#inventory-form').submit(function(e){
 		} else if (index == 4) {
 			five = score;
 		}
-		// from here on below is normal summative
+		// no matter what, we're taking the high score between 8/9 and 11/12
 		if (index==7) {
 			eight = score;
 		} else if (index==8) {
