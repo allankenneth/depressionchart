@@ -215,7 +215,7 @@ db.allDocs({include_docs: true, descending: true}, function(err, doc) {
 			level = "btn-danger";
 		}
 
-		html += '<tr><td><a class="btn btn-sm btn-secondary" href="#'+parseInt(e.doc['date'])+'" class="invdel">x</a></td>';
+		html += '<tr><td><a class="invdel btn btn-sm btn-secondary" href="#'+parseInt(e.doc['date'])+'">x</a></td>';
 		html += '<td>' + d + '</td><td><div class="btn '+ level +'">' + total + '</div></td><td>' + e.doc['diagnoses'] + '</td></tr>';
 		previnventories.push({x: parseInt(e.doc['date']), y: e.doc['score']});
 		count++;
