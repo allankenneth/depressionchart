@@ -317,18 +317,18 @@ $('#inventory-form').submit(function(e){
 	
 	// summative diagnoses
 	diagnose = "Not Depressed";
-	level = "btn-secondary";
+	level = "btn-success";
 	if(total>=20 && total<25) {
 		diagnose = "Mildly Depressed";
-		level = "btn-success";
+		level = "btn-warning";
 	}
 	if(total>=25 && total<30) {
 		diagnose = "Moderately Depressed";
-		level = "btn-warning";
+		level = "btn-danger";
 	}
 	if(total>=30) {
 		diagnose = "Severely Depressed";
-		level = "btn-danger";
+		level = "btn-dark";
 	}
 	rightnow = new Date().getTime();
 	var doc = {

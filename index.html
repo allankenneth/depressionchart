@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="/bootstrap.min.css">
 
   <style>
-  body {padding: 6em 0; position: relative;}
+  body {padding: 4.5em 0; }
   label {color: #666; display: block;}
   .nav-link {padding: .3em;}
   .question {margin: 3em 0;}
@@ -17,28 +17,41 @@
   </style>
 </head>
 <body class="fade-in">
-
-  <nav id="inventory-questions" class="navbar fixed-top navbar-light bg-faded">
-    <span class="navbar-brand">Depression Graph</span>
-  </nav>
+<nav id="inventory-questions" class="navbar fixed-top navbar-light bg-faded">
+	<span class="navbar-brand">Depression Chart</span>
+</nav>
 <div class="container">
-<div class="row justify-content-md-center">
-	<div class="col-md-8">
-<div class="jumbotron">
-<a href="questionnaire.html" class="bounce-top btn btn-primary btn-lg btn-block">Answer the Questions</a>
-<hr>
-<div id="chart"></div>
-<div class="results"></div>
+<div class="row nogutter justify-content-md-center">
+<div class="col-md-6">
+	<a href="questionnaire.html" class="mt-0 mb-3 bounce-top btn btn-primary btn-lg btn-block">Answer the Questions</a>
+	<div class="mb-0 results"></div>
+	<div class="row mx-0 mb-0 mt-0">
+		<div style="border-top-left-radius: 5px; " class="col p-0 text-white bg-success"></div>
+		<div class="col p-0 text-white bg-success">5</div>
+		<div class="col p-0 text-white bg-success">10</div>
+		<div class="col p-0 text-white bg-success">15</div>
+		<div class="col p-0 text-white bg-warning">20</div>
+		<div class="col p-0 text-white bg-danger">25</div>
+		<div class="col p-0 text-white bg-inverse">30</div>
+		<div class="col p-0 text-white bg-inverse">35</div>
+		<div class="col p-0 text-white bg-inverse">40</div>
+		<div style="border-top-right-radius: 5px" class="col p-0 text-white bg-inverse">45</div>
+	</div>
+	<div class="row mx-0 mb-3 text-center" style="font-size: 10px">
+		<div style="border-bottom-left-radius: 5px" class="col text-white bg-success">Not</div>
+		<div class="col text-white bg-warning">Mild</div>
+		<div class="col text-white bg-danger">Moderate</div>
+		<div style="border-bottom-right-radius: 5px" class="col text-white bg-inverse">Severe</div>
+	</div>
+	<p><a href="questionnaire.html">Answer these 14 questions</a>, and your device stores your assessment. Come back in two weeks and take the test again. Your device remembers your previous scores, and as you keep taking the test a chart emerges that shows your results and how they've evolved over time.</p> 
+	<p><em>Note that your information is not transmitted over a network</em>; your assessment is calculated on your device and is stored there too. 
+	<!--<a href="https://github.com/allankenneth/depressiongraph2">The source code is on Github</a>, and is -->
+
+	<p><a href="https://allankenneth.com">Made by Allan</a>, based on the <a href="https://en.wikipedia.org/wiki/Major_Depression_Inventory">Major Depression Inventory</a>.</p>
+	</div>
+</div> <!-- /.container -->
 
 </div>
-</div>
-	<div class="col-md-4">
-		<h1>The Idea</h1>
-		<p><a href="questionnaire.html">Answer these 14 questions</a>, and your device stores your assessment. Come back in two weeks and take the test again. Your device remembers your previous scores and as you keep taking the test a graph emerges that shows your assessments and how they've evolved over time. Note that your information is not transmitted over a network; your assessment is calculated on your device and is stored there too. <a href="https://github.com/allankenneth/depressiongraph2">The source code is on Github</a>, and is <a href="https://allankenneth.com">made by Allan</a>, based on the <a href="https://en.wikipedia.org/wiki/Major_Depression_Inventory">Major Depression Inventory</a>.</p>
-	</div>
-<div>
-</div> <!-- /.container -->
-<hr>
 <script src="/jquery.min.js"></script>
 <script src="/tether.min.js"></script>
 <script src="/bootstrap.min.js"></script>
@@ -52,17 +65,9 @@
 <script>
 $(document).ready(function(){
 
-
-
-
-
-
-
-
 var html = '';
 var count = 0;
 var timeseries = [];
-var inventories = [];
 var scores = [];
 var dates = [];
 
@@ -75,7 +80,9 @@ var barColor = '';
 var db = new PouchDB('inventories');
 db.allDocs({include_docs: true, descending: true}, function(err, doc) {
 	doc.rows.forEach(function(e,index){
-		d = new Date(parseInt(e.doc['date'])).toDateString();
+		//d = new Date(parseInt(e.doc['date'])).toDateString();
+		var options = { month: 'short', day: 'numeric' }
+		d = new Date(parseInt(e.doc['date'])).toLocaleDateString("en-US", options);
 		total = e.doc['score'];
 		level = "bg-success";
 		if(total>=20 && total<25) {
@@ -87,116 +94,28 @@ db.allDocs({include_docs: true, descending: true}, function(err, doc) {
 		if(total>=30) {
 			level = "bg-inverse";
 		}
-		width = parseInt(total) * 10;
-		html += '<div style="width:' + width  + 'px;" class="assessment p-2 text-white '+ level +'">';
-		html += '<a class="invdel float-left mt-2 mr-2 mb-0 mr-0" href="#'+parseInt(e.doc['date'])+'" style="color:#FFF">x</a>';
-		html += '<span class="score float-right" style="height: 40px; width: 40px; padding: 10px 20p 5px 0x; font-size: 24px; text-align: center;">' + total + '</span>';
-		html += '<small>' + d  + '<br>' + e.doc['diagnoses'] + '</small>';
+		width = parseInt(total) * 2;
+		html += '<div style="border-radius: 5px; height: 50px; width:' + width  + '%;" class="assessment p-2 text-white '+ level +'">';
+		html += '<a class="invdel float-left mt-1 mr-2 mb-0 mr-0" href="#'+parseInt(e.doc['date'])+'" style="color:#FFF">x</a>';
+		html += '<span class="score float-right" style="display: inline-block;height: 20px; width: 20px; font-size: 24px; margin-right: 10px; text-align: center;">' + total + '</span>';
+		html += '<small class="text-truncate" style="display: inline-block; margin-top: 8px;">' + d  + '</small>';
+		//'<br>' + e.doc['diagnoses'] + '</small>';
 		html += '</div>';
-		barColors.push(barColor);
 		timeseries.push({x: parseInt(e.doc['date']), y: e.doc['score']});
+		barColors.push(barColor);
 		dates.push(d);
 		scores.push(e.doc['score']);
 		count++;
 	});
-	if(count==0) html = '';
-	//$('.results').html(html);
+	if(count==0) {
+		html = 'No results to show yet.';
+		$('.xscale').hide();
+	}
+	$('.results').html(html);
 	inventories = JSON.stringify(timeseries);
 	inventories = inventories.replace(/\"([^(\")"]+)\":/g,"$1:");
 
 });
-
-
-console.log(scores);
-
-
-var options = {
-            chart: {
-                height: 350,
-                type: 'line',
-                shadow: {
-                    enabled: true,
-                    color: '#000',
-                    top: 18,
-                    left: 7,
-                    blur: 10,
-                    opacity: 1
-                },
-                toolbar: {
-                    show: false
-                }
-            },
-            colors: ['#77B6EA', '#545454'],
-            dataLabels: {
-                enabled: true,
-            },
-            stroke: {
-                curve: 'smooth'
-            },
-            series: [{
-                    name: "High - 2013",
-                    data: [20,30,40]
-                }
-            ],
-            title: {
-                text: 'Average High & Low Temperature',
-                align: 'left'
-            },
-            grid: {
-                borderColor: '#e7e7e7',
-                row: {
-                    colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
-                    opacity: 0.5
-                },
-            },
-            markers: {
-                style: 'inverted',
-                size: 6
-            },
-            xaxis: {
-                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-                title: {
-                    text: 'Month'
-                }
-            },
-            yaxis: {
-                title: {
-                    text: 'Temperature'
-                },
-                min: 5,
-                max: 40
-            },
-            legend: {
-                position: 'top',
-                horizontalAlign: 'right',
-                floating: true,
-                offsetY: -25,
-                offsetX: -5
-            }
-        }
-
-        var chart = new ApexCharts(
-            document.querySelector("#chart"),
-            options
-        );
-
-        chart.render();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 $('body').on('click','a.invdel',function(e){
