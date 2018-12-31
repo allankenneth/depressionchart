@@ -6,9 +6,9 @@
   <meta name="description" content="Depression Graph: Keep track of your major depression inventories. Track, share, get better.">
   <meta name="author" content="Allan Haggett">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <style>
-  body {padding: 6em 0; position: relative;}
+  body {padding: 5em 0; position: relative;}
   label {color: #666; display: block;}
   .navbar-brand { margin-bottom: 5px; }
   .nav-link {padding: .3em;}
@@ -45,10 +45,10 @@
 
   </style>
 </head>
-<body data-spy="scroll" data-offset="210" data-target="#inventory-questions" data-offset="0" class="scrollspy fade-in">
+<body data-spy="scroll" data-offset="210" data-target="#inventory-questions" data-offset="0" class="scrollspy fade-in bg-light">
 
-  <nav id="inventory-questions" class="navbar fixed-top navbar-light bg-faded">
-    <a class="navbar-brand" href="\">Depression Graph</a>
+  <nav id="inventory-questions" class="navbar fixed-top navbar-light bg-white">
+    <a class="navbar-brand" href="\">Depression Chart</a>
     <ul class="nav nav-pills" role="tablist">
       <li class="nav-item"><a class="nav-link" href="#low-spirits" title="1. Have you felt low in spirits or sad?">1</a></li>
       <li class="nav-item"><a class="nav-link" href="#lost-interest" title="2. Have you lost interest in your daily activities?">2</a></li>
@@ -63,27 +63,34 @@
       <li class="nav-item"><a class="nav-link" href="#reduced-appetite" title="10. a)Have you suffered from reduced appetite?">10a</a></li>
       <li class="nav-item"><a class="nav-link" href="#increased-appetite" title="10. b)Have you suffered from increased appetite?">10b</a></li>
     </ul>
-    <div class="navbar-text">In the past two weeks:</div>
+    <div style="clear:both" class="">In the past two weeks:</div>
   </nav>
 <div class="container">
 <div class="row justify-content-md-center">
-<div class="col">
+<div class="col-md-8">
 <form id="inventory-form" action="/take" method="post">
-  <div class="question form-group" id="low-spirits">
-
-    <div class="questiontext">1. Have you felt low in spirits or sad?</div>
-    <label><input type="radio" id="low-spirits1" name="low-spirits" value="5" value="5"> All the time </label>
+<div class="question form-group" id="low-spirits">
+<div class="card">
+<div class="card-header">
+	<div class="questiontext">1. Have you felt low in spirits or sad?</div>
+</div>
+<div class="card-body">
+    <label><input type="radio" id="low-spirits1" name="low-spirits" value="5"> All the time </label>
     <label><input type="radio" id="low-spirits2" name="low-spirits" value="4"> Most of the time</label>
     <label><input type="radio" id="low-spirits3" name="low-spirits" value="3"> Slightly more than half the time</label>
     <label><input type="radio" id="low-spirits4" name="low-spirits" value="2"> Slightly less than half the time</label>
     <label><input type="radio" id="low-spirits5" name="low-spirits" value="1"> Some of the time</label>
     <label><input type="radio" id="low-spirits6" name="low-spirits" value="0"> At no time</label>
-
+</div>
+</div>
   </div>
 
   <div class="question form-group" id="lost-interest">
-
+<div class="card">
+<div class="card-header">
     <div class="questiontext">2. Have you lost interest in your daily activities?</div>
+</div>
+<div class="card-body">
     <label><input type="radio" id="lost-interest1" name="lost-interest" value="5"> All the time </label>
     <label><input type="radio" id="lost-interest2" name="lost-interest" value="4"> Most of the time</label>
     <label><input type="radio" id="lost-interest3" name="lost-interest" value="3"> Slightly more than half the time</label>
@@ -91,11 +98,16 @@
     <label><input type="radio" id="lost-interest5" name="lost-interest" value="1"> Some of the time</label>
     <label><input type="radio" id="lost-interest6" name="lost-interest" value="0"> At no time</label>
 
+</div>
+</div>
   </div>
 
   <div class="question form-group" id="lacking-energy">
-
+<div class="card">
+<div class="card-header">
     <div class="questiontext">3. Have you felt lacking in energy and strength?</div>
+</div>
+<div class="card-body">
     <label><input type="radio" id="lacking-energy1" name="lacking-energy" value="5"> All the time </label>
     <label><input type="radio" id="lacking-energy2" name="lacking-energy" value="4"> Most of the time</label>
     <label><input type="radio" id="lacking-energy3" name="lacking-energy" value="3"> Slightly more than half the time</label>
@@ -103,11 +115,16 @@
     <label><input type="radio" id="lacking-energy5" name="lacking-energy" value="1"> Some of the time</label>
     <label><input type="radio" id="lacking-energy6" name="lacking-energy" value="0"> At no time</label>
 
+</div>
+</div>
   </div>
 
   <div class="question form-group" id="less-self-confident">
-
+<div class="card">
+<div class="card-header">
     <div class="questiontext">4. Have you felt less self-confident?</div>
+</div>
+<div class="card-body">
     <label><input type="radio" id="less-self-confident1" name="less-self-confident" value="5"> All the time </label>
     <label><input type="radio" id="less-self-confident2" name="less-self-confident" value="4"> Most of the time</label>
     <label><input type="radio" id="less-self-confident3" name="less-self-confident" value="3"> Slightly more than half the time</label>
@@ -115,10 +132,15 @@
     <label><input type="radio" id="less-self-confident5" name="less-self-confident" value="1"> Some of the time</label>
     <label><input type="radio" id="less-self-confident6" name="less-self-confident" value="0"> At no time</label>
 
+</div>
+</div>
   </div>
   <div class="question form-group" id="bad-conscience">
-
+<div class="card">
+<div class="card-header">
     <div class="questiontext">5. Have you had a bad conscience or feelings of guilt?</div>
+</div>
+<div class="card-body">
     <label><input type="radio" id="bad-conscience1" name="bad-conscience" value="5"> All the time </label>
     <label><input type="radio" id="bad-conscience2" name="bad-conscience" value="4"> Most of the time</label>
     <label><input type="radio" id="bad-conscience3" name="bad-conscience" value="3"> Slightly more than half the time</label>
@@ -126,10 +148,15 @@
     <label><input type="radio" id="bad-conscience5" name="bad-conscience" value="1"> Some of the time</label>
     <label><input type="radio" id="bad-conscience6" name="bad-conscience" value="0"> At no time</label>
 
+</div>
+</div>
   </div>
   <div class="question form-group" id="not-worth-living">
-
+<div class="card">
+<div class="card-header">
     <div class="questiontext">6. Have you felt that life wasn’t worth living?</div>
+</div>
+<div class="card-body">
     <label><input type="radio" id="not-worth-living1" name="not-worth-living" value="5"> All the time </label>
     <label><input type="radio" id="not-worth-living2" name="not-worth-living" value="4"> Most of the time</label>
     <label><input type="radio" id="not-worth-living3" name="not-worth-living" value="3"> Slightly more than half the time</label>
@@ -137,10 +164,16 @@
     <label><input type="radio" id="not-worth-living5" name="not-worth-living" value="1"> Some of the time</label>
     <label><input type="radio" id="not-worth-living6" name="not-worth-living" value="0"> At no time</label>
 
+</div>
+</div>
   </div>
   <div class="question form-group" id="difficulty-concentrating">
-
+<div class="card">
+<div class="card-header">
     <div class="questiontext">7. Have you had difficulty in concentrating?</div>
+</div>
+<div class="card-body">
+
     <label><input type="radio" id="difficulty-concentrating1" name="difficulty-concentrating" value="5"> All the time </label>
     <label><input type="radio" id="difficulty-concentrating2" name="difficulty-concentrating" value="4"> Most of the time</label>
     <label><input type="radio" id="difficulty-concentrating3" name="difficulty-concentrating" value="3"> Slightly more than half the time</label>
@@ -148,10 +181,15 @@
     <label><input type="radio" id="difficulty-concentrating5" name="difficulty-concentrating" value="1"> Some of the time</label>
     <label><input type="radio" id="difficulty-concentrating6" name="difficulty-concentrating" value="0"> At no time</label>
 
+</div>
+</div>
   </div>
   <div class="question form-group" id="restless">
-
+<div class="card">
+<div class="card-header">
     <div class="questiontext">8. a) Have you felt very restless?</div>
+</div>
+<div class="card-body">
     <label><input type="radio" id="very-restless1" name="very-restless" value="5"> All the time </label>
     <label><input type="radio" id="very-restless2" name="very-restless" value="4"> Most of the time</label>
     <label><input type="radio" id="very-restless3" name="very-restless" value="3"> Slightly more than half the time</label>
@@ -159,10 +197,15 @@
     <label><input type="radio" id="very-restless5" name="very-restless" value="1"> Some of the time</label>
     <label><input type="radio" id="very-restless6" name="very-restless" value="0"> At no time</label>
 
+</div>
+</div>
   </div>
   <div class="question form-group" id="subdued">
-
+<div class="card">
+<div class="card-header">
     <div class="questiontext">8. b)Have you felt subdued or slowed down?</div>
+</div>
+<div class="card-body">
     <label><input type="radio" id="subdued-or-slowed1" name="subdued-or-slowed" value="5"> All the time </label>
     <label><input type="radio" id="subdued-or-slowed2" name="subdued-or-slowed" value="4"> Most of the time</label>
     <label><input type="radio" id="subdued-or-slowed3" name="subdued-or-slowed" value="3"> Slightly more than half the time</label>
@@ -170,11 +213,16 @@
     <label><input type="radio" id="subdued-or-slowed5" name="subdued-or-slowed" value="1"> Some of the time</label>
     <label><input type="radio" id="subdued-or-slowed6" name="subdued-or-slowed" value="0"> At no time</label>
 
+</div>
+</div>
   </div>
 
   <div class="question form-group" id="trouble-sleeping">
-
+<div class="card">
+<div class="card-header">
     <div class="questiontext">9. Have you had trouble sleeping at night?</div>
+</div>
+<div class="card-body">
     <label><input type="radio" id="trouble-sleeping1" name="trouble-sleeping" value="5"> All the time </label>
     <label><input type="radio" id="trouble-sleeping2" name="trouble-sleeping" value="4"> Most of the time</label>
     <label><input type="radio" id="trouble-sleeping3" name="trouble-sleeping" value="3"> Slightly more than half the time</label>
@@ -182,10 +230,15 @@
     <label><input type="radio" id="trouble-sleeping5" name="trouble-sleeping" value="1"> Some of the time</label>
     <label><input type="radio" id="trouble-sleeping6" name="trouble-sleeping" value="0"> At no time</label>
 
+</div>
+</div>
   </div>
   <div class="question form-group" id="reduced-appetite">
-
+<div class="card">
+<div class="card-header">
     <div class="questiontext">10. a)Have you suffered from reduced appetite?</div>
+</div>
+<div class="card-body">
     <label><input type="radio" id="reduced-appetite1" name="reduced-appetite" value="5"> All the time </label>
     <label><input type="radio" id="reduced-appetite2" name="reduced-appetite" value="4"> Most of the time</label>
     <label><input type="radio" id="reduced-appetite3" name="reduced-appetite" value="3"> Slightly more than half the time</label>
@@ -193,10 +246,15 @@
     <label><input type="radio" id="reduced-appetite5" name="reduced-appetite" value="1"> Some of the time</label>
     <label><input type="radio" id="reduced-appetite6" name="reduced-appetite" value="0"> At no time</label>
 
+</div>
+</div>
   </div>
   <div class="question form-group" id="increased-appetite">
-
+<div class="card">
+<div class="card-header">
     <div class="questiontext">10. b)Have you suffered from increased appetite?</div>
+</div>
+<div class="card-body">
     <label><input type="radio" id="increased-appetite1" name="increased-appetite" value="5"> All the time </label>
     <label><input type="radio" id="increased-appetite2" name="increased-appetite" value="4"> Most of the time</label>
     <label><input type="radio" id="increased-appetite3" name="increased-appetite" value="3"> Slightly more than half the time</label>
@@ -204,11 +262,33 @@
     <label><input type="radio" id="increased-appetite5" name="increased-appetite" value="1"> Some of the time</label>
     <label><input type="radio" id="increased-appetite6" name="increased-appetite" value="0"> At no time</label>
 
-  </div>
-    <button class="btn btn-lg btn-block btn-primary">Submit Inventory</button>
+</div>
+</div>
+</div>
+    <button class="btn btn-lg btn-block btn-primary">Submit Answers</button>
 <hr>
-<div class="results"></div>
+<div class="mb-0 results"></div>
+<div class="row mx-0 mb-0 mt-0">
+	<div style="border-top-left-radius: 5px; " class="col p-0 text-white bg-success"></div>
+	<div class="col p-0 text-white bg-success">5</div>
+	<div class="col p-0 text-white bg-success">10</div>
+	<div class="col p-0 text-white bg-success">15</div>
+	<div class="col p-0 text-white bg-warning">20</div>
+	<div class="col p-0 text-white bg-danger">25</div>
+	<div class="col p-0 text-white bg-dark">30</div>
+	<div class="col p-0 text-white bg-dark">35</div>
+	<div class="col p-0 text-white bg-dark">40</div>
+	<div style="border-top-right-radius: 5px" class="col p-0 text-white bg-dark">45</div>
+</div>
+<div class="row mx-0 mb-3 text-center" style="font-size: 10px">
+	<div style="border-bottom-left-radius: 5px" class="col text-white bg-success">Not</div>
+	<div class="col text-white bg-warning">Mild</div>
+	<div class="col text-white bg-danger">Moderate</div>
+	<div style="border-bottom-right-radius: 5px" class="col text-white bg-dark">Severe</div>
+</div>
+<div class="compare"></div>
 <hr>
+<a class="ioshort btn btn-block btn-secondary" href="https://www.icloud.com/shortcuts/47a15ce8b39b46eaa6788929268440da">iOS Shortcut to Remind Yourself in Two Week</a>
     <p>This Depression Inventory is designed for screening of major depressive disorder. The inventory is not designed to take the place of a professional diagnosis or consultation. If your score indicates that you might have depressive disorder please contact with a qualified mental health care professional for further clinical evaluation.</p>
 </form>
 </div>
@@ -223,13 +303,17 @@
 <script>
 $(document).ready(function(){
 
+	$('.ioshort').hide();
+if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
+	$('.ioshort').show();
+}
 $('.nav-item').on('click', function(event) {
 	event.preventDefault();
-        $.scrollTo(event.target.hash, 250, {offset:-140,});
+        $.scrollTo(event.target.hash, 250, {offset:-120,});
 });
 $('.question input').on('change', function(event) {
 	nextQuestion = $(this).closest('.question').next();
-        $.scrollTo(nextQuestion, 250, {offset:-140,});
+        $.scrollTo(nextQuestion, 250, {offset:-120,});
 });
 
 var db = new PouchDB('inventories');
@@ -317,18 +401,18 @@ $('#inventory-form').submit(function(e){
 	
 	// summative diagnoses
 	diagnose = "Not Depressed";
-	level = "btn-secondary";
+	level = "bg-success";
 	if(total>=20 && total<25) {
 		diagnose = "Mildly Depressed";
-		level = "btn-success";
+		level = "bg-warning";
 	}
 	if(total>=25 && total<30) {
 		diagnose = "Moderately Depressed";
-		level = "btn-warning";
+		level = "bg-danger";
 	}
 	if(total>=30) {
 		diagnose = "Severely Depressed";
-		level = "btn-danger";
+		level = "bg-dark";
 	}
 	rightnow = new Date().getTime();
 	var doc = {
@@ -337,11 +421,18 @@ $('#inventory-form').submit(function(e){
 		"score": total,
 		"diagnoses": diagnose,
 		"ICDdiagnose": ICDdiagnose,
-		"ICDscore": ICDscore
+		"ICDscore": ICDscore,
+		"answers": data
 	};
 	db.put(doc);
-	message = '<div class="yourscore"><span class="btn btn-lg ' + level + '"> ' + total + '</span> ' + diagnose + '</div>';
+	width = parseInt(total) * 2;
+	message = '<div style="border-radius: 5px; height: 50px; width:' + width  + '%;" class="assessment p-2 text-white '+ level +'">';
+	message += '' + total + '</div>';
+	comparewith = '<hr><a class="btn btn-block btn-lg btn-secondary" href="/">Compare with your other results</a>';
+
+	//message = '<div class="yourscore"><span class="btn btn-lg ' + level + '"> ' + total + '</span> ' + diagnose + '</div>';
 	$('.results').hide().html(message).fadeIn();
+	$('.compare').html(comparewith);
 });
 
 });
