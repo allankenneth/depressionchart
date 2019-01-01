@@ -46,6 +46,25 @@
 	</div> <!-- /.container -->
 
 </div>
+<div class="modal fade" id="answersModal" tabindex="-1" role="dialog" aria-labelledby="answersModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 id="dateTestModal">January 1st 2020</h6>
+        <h5 id="diagnosesModalLabel">Not Depressed</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
@@ -86,9 +105,10 @@ db.allDocs({include_docs: true, descending: true}, function(err, doc) {
 		width = parseInt(total) * 2;
 		html += '<div style="border-radius: 5px; height: 50px; width:' + width  + '%;" class="assessment p-2 text-white '+ level +'">';
 		html += '<a class="invdel float-left mt-1 mr-2 mb-0 mr-0" href="#'+parseInt(e.doc['date'])+'" style="color:#FFF">x</a>';
-		html += '<a class="answers float-left mt-1 mr-2 mb-0 mr-0" href="#'+parseInt(e.doc['date'])+'" style="color:#FFF">&bull;</a>';
-		html += '<span data-toggle="tooltip" data-placement="top" title="' + e.doc['diagnoses'] + '" ';
-		html += 'class="score float-right" style="display: inline-block;height: 20px; width: 20px; font-size: 24px; margin-right: 10px; text-align: center;">' + total + '</span>';
+		//html += '<a class="answers float-left mt-1 mr-2 mb-0 mr-0" href="#'+parseInt(e.doc['date'])+'" style="color:#FFF">&bull;</a>';
+		
+		html += '<a href="#" data-toggle="modal" data-target="#answersModal" data-key="' + parseInt(e.doc['date']) + '"';
+		html += 'class="score float-right" style="color:#FFF;display: inline-block;height: 20px; width: 20px; font-size: 24px; margin-right: 10px; text-align: center;">' + total + '</a>';
 		html += '<small class="text-center " style="display: inline-block; margin-top: 6px; line-height: 1em; text-align: center; text-transform: uppercase; width: 20px;">' + d  + '</small>';
 		//'<br>' + e.doc['diagnoses'] + '</small>';
 		html += '</div>';
@@ -110,21 +130,6 @@ db.allDocs({include_docs: true, descending: true}, function(err, doc) {
 });
 
 
-$('body').on('click','a.answers',function(e){
-	e.preventDefault();
-	mydoc = $(this).attr('href');
-	docid = mydoc.split('#');
-	did = docid[1];
-	db.get(did).then(function (doc) {
-		tbl = '<table class="table bg-white">';
-		doc.answers.forEach(function(e,index){
-			tbl += '<tr><td>' + e.name + '</td><td>' + e.value + '</td></tr>';
-		});
-		tbl += '</table>';
-		$('.ans').html(tbl);
-	});
-});
-
 $('body').on('click','a.invdel',function(e){
 	e.preventDefault();
 	//$(this).parents('.assessment').tooltip('disable');
@@ -136,6 +141,33 @@ $('body').on('click','a.invdel',function(e){
 	});
 	$(this).parents('.assessment').remove();
 });
+
+
+
+$('#answersModal').on('show.bs.modal', function (event) {
+
+	var button = $(event.relatedTarget);
+	var did = button.data('key').toString(); 
+	console.log(did);
+	db.get(did).then(function (doc) {
+		
+		console.log(doc);
+		var options = { month: 'short', day: 'numeric' }
+		coolDate = new Date(parseInt(doc.date)).toLocaleDateString("en-US", options);
+		tbl = '<table class="table bg-white">';
+		doc.answers.forEach(function(e,index){
+			tbl += '<tr><td>' + e.name + '</td><td>' + e.value + '</td></tr>';
+		});
+		tbl += '</table>';
+		
+		$('#diagnosesModalLabel').text(doc.diagnoses);
+		$('#dateTestModal').text(coolDate);
+		$('.modal-body').html(tbl);
+
+	});
+});
+
+
 
 });
 </script>
