@@ -133,14 +133,13 @@ $('#answersModal').on('show.bs.modal', function (event) {
 	var did = button.data('key').toString(); 
 	db.get(did).then(function (doc) {
 		
-		console.log(doc);
 		var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'  }
 		coolDate = new Date(parseInt(doc.date)).toLocaleDateString("en-US", options);
 		l = getLevel(doc.score);
 		tbl = '<h3 class="rounded p-3 m-3 ' + l + ' text-white text-center ">' + doc.diagnoses + '</h3>';
-		tbl += '<table class="table bg-white">';
 		var qu = 0;
 		doc.answers.forEach(function(e,index){
+
 			width = parseInt(e.value) * 20;
 			ans = parseInt(e.value);
 			sayit = getAnswer(ans);
@@ -151,12 +150,9 @@ $('#answersModal').on('show.bs.modal', function (event) {
 			tbl += '</div>';
 			qu++;
 		});
-		tbl += '</table>';
-		
 		$('#diagnosesModalLabel').text(doc.diagnoses);
 		$('#dateTestModal').text(coolDate);
 		$('#answerSet').html(tbl);
-
 	});
 });
 
@@ -194,13 +190,13 @@ function getQuestion(i) {
 function getLevel(total) {
 
 	level = "bg-success";
-	if(total>=20 && total<25) {
+	if(total >= 20 && total < 25) {
 		level = "bg-warning";
 	}
-	if(total>=25 && total<30) {
+	if(total >= 25 && total < 30) {
 		level = "bg-danger";
 	}
-	if(total>=30) {
+	if(total >= 30) {
 		level = "bg-dark";
 	}
 	return level;
