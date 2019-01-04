@@ -1,0 +1,442 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Depression Graph</title>
+  <meta name="description" content="Depression Graph: Keep track of your major depression inventories. Track, share, get better.">
+  <meta name="author" content="Allan Haggett">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/bootstrap.min.css">
+  <style>
+  body {padding: 5em 0; position: relative;}
+  label {color: #666; display: block;}
+  .navbar-brand { margin-bottom: 5px; }
+  .nav-link {padding: .3em;}
+  .question {margin: 3em 0;}
+  .questiontext {font-size: 1.6em; font-weight: 200; margin: 0 0 .5em 0;}
+  .results { text-align: center; }
+.fade-in {
+	-webkit-animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+	        animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+
+/**
+ * ----------------------------------------
+ * animation fade-in
+ * ----------------------------------------
+ */
+@-webkit-keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+
+  </style>
+</head>
+<body data-spy="scroll" data-offset="210" data-target="#inventory-questions" data-offset="0" class="scrollspy fade-in bg-light">
+
+  <nav id="inventory-questions" class="navbar fixed-top navbar-light bg-white">
+    <a class="navbar-brand" href="\">Depression Chart</a>
+    <ul class="nav nav-pills w-100" role="tablist">
+      <li class="nav-item"><a class="nav-link" href="#low-spirits" title="1. Have you felt low in spirits or sad?">1</a></li>
+      <li class="nav-item"><a class="nav-link" href="#lost-interest" title="2. Have you lost interest in your daily activities?">2</a></li>
+      <li class="nav-item"><a class="nav-link" href="#lacking-energy" title="3. Have you felt lacking in energy and strength?">3</a></li>
+      <li class="nav-item"><a class="nav-link" href="#less-self-confident" title="4. Have you felt less self-confident?">4</a></li>
+      <li class="nav-item"><a class="nav-link" href="#bad-conscience" title="5. Have you had a bad conscience or feelings of guilt?">5</a></li>
+      <li class="nav-item"><a class="nav-link" href="#not-worth-living" title="6. Have you felt that life wasn’t worth living?">6</a></li>
+      <li class="nav-item"><a class="nav-link" href="#difficulty-concentrating" title="7. Have you had difficulty in concentrating?">7</a></li>
+      <li class="nav-item"><a class="nav-link" href="#restless" title="8. a) Have you felt very restless?">8a</a></li>
+      <li class="nav-item"><a class="nav-link" href="#subdued" title="8. b)Have you felt subdued or slowed down?">8b</a></li>
+      <li class="nav-item"><a class="nav-link" href="#trouble-sleeping" title="9. Have you had trouble sleeping at night?">9</a></li>
+      <li class="nav-item"><a class="nav-link" href="#reduced-appetite" title="10. a)Have you suffered from reduced appetite?">10a</a></li>
+      <li class="nav-item"><a class="nav-link" href="#increased-appetite" title="10. b)Have you suffered from increased appetite?">10b</a></li>
+    </ul>
+    <div style="clear:both" class="w-100">In the past two weeks:</div>
+  </nav>
+<div class="container">
+<div class="row justify-content-md-center">
+<div class="col-md-8">
+<form id="inventory-form" action="/take" method="post">
+<div class="question form-group" id="low-spirits">
+<div class="card">
+<div class="card-header">
+	<div class="questiontext">1. Have you felt low in spirits or sad?</div>
+</div>
+<div class="card-body">
+    <label><input type="radio" id="low-spirits1" name="low-spirits" value="5"> All the time </label>
+    <label><input type="radio" id="low-spirits2" name="low-spirits" value="4"> Most of the time</label>
+    <label><input type="radio" id="low-spirits3" name="low-spirits" value="3"> Slightly more than half the time</label>
+    <label><input type="radio" id="low-spirits4" name="low-spirits" value="2"> Slightly less than half the time</label>
+    <label><input type="radio" id="low-spirits5" name="low-spirits" value="1"> Some of the time</label>
+    <label><input type="radio" id="low-spirits6" name="low-spirits" value="0"> At no time</label>
+</div>
+</div>
+  </div>
+
+  <div class="question form-group" id="lost-interest">
+<div class="card">
+<div class="card-header">
+    <div class="questiontext">2. Have you lost interest in your daily activities?</div>
+</div>
+<div class="card-body">
+    <label><input type="radio" id="lost-interest1" name="lost-interest" value="5"> All the time </label>
+    <label><input type="radio" id="lost-interest2" name="lost-interest" value="4"> Most of the time</label>
+    <label><input type="radio" id="lost-interest3" name="lost-interest" value="3"> Slightly more than half the time</label>
+    <label><input type="radio" id="lost-interest4" name="lost-interest" value="2"> Slightly less than half the time</label>
+    <label><input type="radio" id="lost-interest5" name="lost-interest" value="1"> Some of the time</label>
+    <label><input type="radio" id="lost-interest6" name="lost-interest" value="0"> At no time</label>
+
+</div>
+</div>
+  </div>
+
+  <div class="question form-group" id="lacking-energy">
+<div class="card">
+<div class="card-header">
+    <div class="questiontext">3. Have you felt lacking in energy and strength?</div>
+</div>
+<div class="card-body">
+    <label><input type="radio" id="lacking-energy1" name="lacking-energy" value="5"> All the time </label>
+    <label><input type="radio" id="lacking-energy2" name="lacking-energy" value="4"> Most of the time</label>
+    <label><input type="radio" id="lacking-energy3" name="lacking-energy" value="3"> Slightly more than half the time</label>
+    <label><input type="radio" id="lacking-energy4" name="lacking-energy" value="2"> Slightly less than half the time</label>
+    <label><input type="radio" id="lacking-energy5" name="lacking-energy" value="1"> Some of the time</label>
+    <label><input type="radio" id="lacking-energy6" name="lacking-energy" value="0"> At no time</label>
+
+</div>
+</div>
+  </div>
+
+  <div class="question form-group" id="less-self-confident">
+<div class="card">
+<div class="card-header">
+    <div class="questiontext">4. Have you felt less self-confident?</div>
+</div>
+<div class="card-body">
+    <label><input type="radio" id="less-self-confident1" name="less-self-confident" value="5"> All the time </label>
+    <label><input type="radio" id="less-self-confident2" name="less-self-confident" value="4"> Most of the time</label>
+    <label><input type="radio" id="less-self-confident3" name="less-self-confident" value="3"> Slightly more than half the time</label>
+    <label><input type="radio" id="less-self-confident4" name="less-self-confident" value="2"> Slightly less than half the time</label>
+    <label><input type="radio" id="less-self-confident5" name="less-self-confident" value="1"> Some of the time</label>
+    <label><input type="radio" id="less-self-confident6" name="less-self-confident" value="0"> At no time</label>
+
+</div>
+</div>
+  </div>
+  <div class="question form-group" id="bad-conscience">
+<div class="card">
+<div class="card-header">
+    <div class="questiontext">5. Have you had a bad conscience or feelings of guilt?</div>
+</div>
+<div class="card-body">
+    <label><input type="radio" id="bad-conscience1" name="bad-conscience" value="5"> All the time </label>
+    <label><input type="radio" id="bad-conscience2" name="bad-conscience" value="4"> Most of the time</label>
+    <label><input type="radio" id="bad-conscience3" name="bad-conscience" value="3"> Slightly more than half the time</label>
+    <label><input type="radio" id="bad-conscience4" name="bad-conscience" value="2"> Slightly less than half the time</label>
+    <label><input type="radio" id="bad-conscience5" name="bad-conscience" value="1"> Some of the time</label>
+    <label><input type="radio" id="bad-conscience6" name="bad-conscience" value="0"> At no time</label>
+
+</div>
+</div>
+  </div>
+  <div class="question form-group" id="not-worth-living">
+<div class="card">
+<div class="card-header">
+    <div class="questiontext">6. Have you felt that life wasn’t worth living?</div>
+</div>
+<div class="card-body">
+    <label><input type="radio" id="not-worth-living1" name="not-worth-living" value="5"> All the time </label>
+    <label><input type="radio" id="not-worth-living2" name="not-worth-living" value="4"> Most of the time</label>
+    <label><input type="radio" id="not-worth-living3" name="not-worth-living" value="3"> Slightly more than half the time</label>
+    <label><input type="radio" id="not-worth-living4" name="not-worth-living" value="2"> Slightly less than half the time</label>
+    <label><input type="radio" id="not-worth-living5" name="not-worth-living" value="1"> Some of the time</label>
+    <label><input type="radio" id="not-worth-living6" name="not-worth-living" value="0"> At no time</label>
+
+</div>
+</div>
+  </div>
+  <div class="question form-group" id="difficulty-concentrating">
+<div class="card">
+<div class="card-header">
+    <div class="questiontext">7. Have you had difficulty in concentrating?</div>
+</div>
+<div class="card-body">
+
+    <label><input type="radio" id="difficulty-concentrating1" name="difficulty-concentrating" value="5"> All the time </label>
+    <label><input type="radio" id="difficulty-concentrating2" name="difficulty-concentrating" value="4"> Most of the time</label>
+    <label><input type="radio" id="difficulty-concentrating3" name="difficulty-concentrating" value="3"> Slightly more than half the time</label>
+    <label><input type="radio" id="difficulty-concentrating4" name="difficulty-concentrating" value="2"> Slightly less than half the time</label>
+    <label><input type="radio" id="difficulty-concentrating5" name="difficulty-concentrating" value="1"> Some of the time</label>
+    <label><input type="radio" id="difficulty-concentrating6" name="difficulty-concentrating" value="0"> At no time</label>
+
+</div>
+</div>
+  </div>
+  <div class="question form-group" id="restless">
+<div class="card">
+<div class="card-header">
+    <div class="questiontext">8. a) Have you felt very restless?</div>
+</div>
+<div class="card-body">
+    <label><input type="radio" id="very-restless1" name="very-restless" value="5"> All the time </label>
+    <label><input type="radio" id="very-restless2" name="very-restless" value="4"> Most of the time</label>
+    <label><input type="radio" id="very-restless3" name="very-restless" value="3"> Slightly more than half the time</label>
+    <label><input type="radio" id="very-restless4" name="very-restless" value="2"> Slightly less than half the time</label>
+    <label><input type="radio" id="very-restless5" name="very-restless" value="1"> Some of the time</label>
+    <label><input type="radio" id="very-restless6" name="very-restless" value="0"> At no time</label>
+
+</div>
+</div>
+  </div>
+  <div class="question form-group" id="subdued">
+<div class="card">
+<div class="card-header">
+    <div class="questiontext">8. b)Have you felt subdued or slowed down?</div>
+</div>
+<div class="card-body">
+    <label><input type="radio" id="subdued-or-slowed1" name="subdued-or-slowed" value="5"> All the time </label>
+    <label><input type="radio" id="subdued-or-slowed2" name="subdued-or-slowed" value="4"> Most of the time</label>
+    <label><input type="radio" id="subdued-or-slowed3" name="subdued-or-slowed" value="3"> Slightly more than half the time</label>
+    <label><input type="radio" id="subdued-or-slowed4" name="subdued-or-slowed" value="2"> Slightly less than half the time</label>
+    <label><input type="radio" id="subdued-or-slowed5" name="subdued-or-slowed" value="1"> Some of the time</label>
+    <label><input type="radio" id="subdued-or-slowed6" name="subdued-or-slowed" value="0"> At no time</label>
+
+</div>
+</div>
+  </div>
+
+  <div class="question form-group" id="trouble-sleeping">
+<div class="card">
+<div class="card-header">
+    <div class="questiontext">9. Have you had trouble sleeping at night?</div>
+</div>
+<div class="card-body">
+    <label><input type="radio" id="trouble-sleeping1" name="trouble-sleeping" value="5"> All the time </label>
+    <label><input type="radio" id="trouble-sleeping2" name="trouble-sleeping" value="4"> Most of the time</label>
+    <label><input type="radio" id="trouble-sleeping3" name="trouble-sleeping" value="3"> Slightly more than half the time</label>
+    <label><input type="radio" id="trouble-sleeping4" name="trouble-sleeping" value="2"> Slightly less than half the time</label>
+    <label><input type="radio" id="trouble-sleeping5" name="trouble-sleeping" value="1"> Some of the time</label>
+    <label><input type="radio" id="trouble-sleeping6" name="trouble-sleeping" value="0"> At no time</label>
+
+</div>
+</div>
+  </div>
+  <div class="question form-group" id="reduced-appetite">
+<div class="card">
+<div class="card-header">
+    <div class="questiontext">10. a)Have you suffered from reduced appetite?</div>
+</div>
+<div class="card-body">
+    <label><input type="radio" id="reduced-appetite1" name="reduced-appetite" value="5"> All the time </label>
+    <label><input type="radio" id="reduced-appetite2" name="reduced-appetite" value="4"> Most of the time</label>
+    <label><input type="radio" id="reduced-appetite3" name="reduced-appetite" value="3"> Slightly more than half the time</label>
+    <label><input type="radio" id="reduced-appetite4" name="reduced-appetite" value="2"> Slightly less than half the time</label>
+    <label><input type="radio" id="reduced-appetite5" name="reduced-appetite" value="1"> Some of the time</label>
+    <label><input type="radio" id="reduced-appetite6" name="reduced-appetite" value="0"> At no time</label>
+
+</div>
+</div>
+  </div>
+  <div class="question form-group" id="increased-appetite">
+<div class="card">
+<div class="card-header">
+    <div class="questiontext">10. b)Have you suffered from increased appetite?</div>
+</div>
+<div class="card-body">
+    <label><input type="radio" id="increased-appetite1" name="increased-appetite" value="5"> All the time </label>
+    <label><input type="radio" id="increased-appetite2" name="increased-appetite" value="4"> Most of the time</label>
+    <label><input type="radio" id="increased-appetite3" name="increased-appetite" value="3"> Slightly more than half the time</label>
+    <label><input type="radio" id="increased-appetite4" name="increased-appetite" value="2"> Slightly less than half the time</label>
+    <label><input type="radio" id="increased-appetite5" name="increased-appetite" value="1"> Some of the time</label>
+    <label><input type="radio" id="increased-appetite6" name="increased-appetite" value="0"> At no time</label>
+
+</div>
+</div>
+</div>
+    <button class="btn btn-lg btn-block btn-primary">Submit Answers</button>
+<hr>
+<div class="mb-0 results"></div>
+<div class="row mx-0 mb-0 mt-0">
+	<div style="border-top-left-radius: 5px; " class="col p-0 text-white bg-success"></div>
+	<div class="col p-0 text-white bg-success">5</div>
+	<div class="col p-0 text-white bg-success">10</div>
+	<div class="col p-0 text-white bg-success">15</div>
+	<div class="col p-0 text-white bg-warning">20</div>
+	<div class="col p-0 text-white bg-danger">25</div>
+	<div class="col p-0 text-white bg-dark">30</div>
+	<div class="col p-0 text-white bg-dark">35</div>
+	<div class="col p-0 text-white bg-dark">40</div>
+	<div style="border-top-right-radius: 5px" class="col p-0 text-white bg-dark">45</div>
+</div>
+<div class="row mx-0 mb-3 text-center" style="font-size: 10px">
+	<div style="border-bottom-left-radius: 5px" class="col text-white bg-success">Not</div>
+	<div class="col text-white bg-warning">Mild</div>
+	<div class="col text-white bg-danger">Moderate</div>
+	<div style="border-bottom-right-radius: 5px" class="col text-white bg-dark">Severe</div>
+</div>
+<div class="compare"></div>
+<hr>
+<a class="ioshort btn btn-block btn-secondary" href="https://www.icloud.com/shortcuts/47a15ce8b39b46eaa6788929268440da">iOS Shortcut to Remind Yourself in Two Week</a>
+
+	<p>These questions are designed to screen for major depressive disorder; not designed to take the place of a professional diagnosis or consultation. If your score indicates that you might have depressive disorder please contact with a qualified mental health care professional for further clinical evaluation.</p>
+</form>
+</div>
+</div>
+<div> <!-- /.cotnainer -->
+<hr>
+
+<script src="/jquery.min.js"></script>
+<script src="/bootstrap.min.js"></script>
+<script src="/jquery.scrollTo.min.js"></script>
+<script src="/pouchdb.min.js"></script>
+<script>
+$(document).ready(function(){
+
+	$('.ioshort').hide();
+if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
+	$('.ioshort').show();
+}
+$('.nav-item').on('click', function(event) {
+	event.preventDefault();
+        $.scrollTo(event.target.hash, 250, {offset:-120,});
+});
+$('.question input').on('change', function(event) {
+	nextQuestion = $(this).closest('.question').next();
+        $.scrollTo(nextQuestion, 250, {offset:-120,});
+});
+
+var db = new PouchDB('inventories');
+//
+// low-spirits=4
+// lost-interest=4
+// lacking-energy=4
+// less-self-confident=4
+// bad-conscience=4
+// not-worth-living=4
+// difficulty-concentrating=4
+// very-restless=4
+// subdued-or-slowed=4
+// trouble-sleeping=4
+// reduced-appetite=4
+// increased-appetite=4
+// 
+$('#inventory-form').submit(function(e){
+	e.preventDefault();
+	data = jQuery(this).serializeArray();
+	tempscore = 0;
+	firstThree = 0;
+	lastSeven = 0;
+	four = 0;
+	five = 0;
+	eight = 0;
+	ten = 0;
+	ICDscore = 0;
+	data.forEach(function(element, index) {
+		score = parseInt(element['value']);
+		// Produce an ICD-10 diagnoses
+		// TODO fix this
+		//To measure treatment outcome the sum of the ten items is used. A higher score signifies deeper depression.
+		//When using the scale to diagnose depression according to ICD-10, there are the following possibilities:
+		//Mild depression: A score of 4 or 5 in two of the first three items. Plus a score of at least 3 on two or three of the last seven items.
+		//Moderate depression: A score of 4 or 5 in two or three of the first three items. Plus a score of at least 3 on four of the last seven items.
+		//Severe depression: A score of 4 or 5 in all of the first three items. Plus a score of at least 3 on five or more of the last seven items.
+		//Major depression: The number of items is reduced to nine, as Item 4 is part of Item 5. 
+		//Include whichever of the two items has the highest score (item 4 or 5). 
+		//A score on at least five items is required, to be scored as follows: 
+		//the score on the first three items must be at least 4, and on the other items at least 3. 
+		//Either Item 1 or 2 must have a score of 4 or 5.
+		
+		if(index <= 2) {
+			if(score >= 4) firstThree = firstThree + 1;
+		}
+		if(index >= 3) {
+			if(score >= 3) lastSeven = lastSeven + 1;
+		}
+		// ICD-10 score requires us to take the high score between questions 4 & 5
+		if(index == 3) {
+			four = score;
+		} else if (index == 4) {
+			five = score;
+		}
+		// no matter what, we're taking the high score between 8/9 and 11/12
+		if (index==7) {
+			eight = score;
+		} else if (index==8) {
+			if(score > eight) eight = score;
+		} else if (index==10) {
+			ten = score;
+		} else if (index==11) {
+			if(score > ten) ten = score;
+		} else {
+			tempscore = tempscore + score;
+		}
+	});
+	ICDdiagnose = "Not Depressed";
+	if(firstThree >= 2 && lastSeven == 3) ICDdiagnose = "Mild Depression";
+	if(firstThree >= 2 && lastSeven >= 4) ICDdiagnose = "Moderate Depression";
+	if(firstThree == 3 && lastSeven >= 5) ICDdiagnose = "Severe Depression";
+	//if(firstThree >= 2 && lastSeven >= 3) ICDdiagnose = "Major Depression";
+	
+	// Summative scoring:
+	total = tempscore + eight + ten;
+
+	// ICD-10 score
+	// we want to keep the largest between 4 & 5, and subtract out the lower number
+	ICDminus = four;
+	if(five < ICDminus) ICDminus = five;
+	ICDscore = total - ICDminus;
+	ICDmessage = "ICD-10 Score: " + ICDscore + ". ICD Diagnoses: " + ICDdiagnose;
+	console.log(ICDmessage);
+	
+	// summative diagnoses
+	diagnose = "Not Depressed";
+	level = "bg-success";
+	if(total>=20 && total<25) {
+		diagnose = "Mildly Depressed";
+		level = "bg-warning";
+	}
+	if(total>=25 && total<30) {
+		diagnose = "Moderately Depressed";
+		level = "bg-danger";
+	}
+	if(total>=30) {
+		diagnose = "Severely Depressed";
+		level = "bg-dark";
+	}
+	rightnow = new Date().getTime();
+	var doc = {
+		"_id": rightnow.toString(),
+		"date": rightnow.toString(),
+		"score": total,
+		"diagnoses": diagnose,
+		"ICDdiagnose": ICDdiagnose,
+		"ICDscore": ICDscore,
+		"answers": data
+	};
+	db.put(doc);
+	width = parseInt(total) * 2;
+	message = '<div style="border-radius: 5px; height: 50px; width:' + width  + '%;" class="assessment p-2 text-white '+ level +'">';
+	message += '' + total + '</div>';
+	comparewith = '<hr><a class="btn btn-block btn-lg btn-secondary" href="/">Compare with your other results</a>';
+
+	//message = '<div class="yourscore"><span class="btn btn-lg ' + level + '"> ' + total + '</span> ' + diagnose + '</div>';
+	$('.results').hide().html(message).fadeIn();
+	$('.compare').html(comparewith);
+});
+
+});
+</script>
+</body>
+</html>
