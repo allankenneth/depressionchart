@@ -1,19 +1,19 @@
 <!doctype html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>Depression Chart</title>
-  <meta name="description" content="Depression Chart: Keep track of your major depression inventories. Track, share, get better.">
-  <meta name="author" content="Allan Haggett">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-  <style>
-  body {padding: 4.5em 0; }
-  label {color: #666; display: block;}
-  .nav-link {padding: .3em;}
-  .question {margin: 3em 0;}
-  .questiontext {font-size: 1.6em; font-weight: 200; margin: 0 0 .5em 0;}
-  </style>
+<meta charset="utf-8">
+<title>Depression Chart</title>
+<meta name="description" content="Depression Chart: Keep track of your major depression inventories. Track, share, get better.">
+<meta name="author" content="Allan Haggett">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/bootstrap.min.css">
+<style>
+body {padding: 4.5em 0; }
+label {color: #666; display: block;}
+.nav-link {padding: .3em;}
+.question {margin: 3em 0;}
+.questiontext {font-size: 1.6em; font-weight: 200; margin: 0 0 .5em 0;}
+</style>
 </head>
 <body class="bg-light">
 <nav id="inventory-questions" class="navbar fixed-top navbar-light bg-white">
@@ -54,14 +54,15 @@
 <div class="modal-dialog" role="document">
 <div class="modal-content">
 	<div class="modal-header">
-		<div>In the two weeks prior to</div>
+		<div class="text-center">In the two weeks prior to</div>
 		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 			<span aria-hidden="true">&times;</span>
 		</button>
 	</div>
 	<div class="modal-body">
 
-		<h4 id="dateTestModal">January 1st 2020</h4>
+		<h4 class="text-center" id="dateTestModal">January 1st 2020</h4>
+		<p class="text-center mb-1">Your answers indicated that you may be:</p>
 		<div id="answerSet"></div>
 
 	</div>
@@ -71,9 +72,9 @@
 </div>
 </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+<script src="/jquery.min.js"></script>
+<script src="/bootstrap.min.js"></script>
 <script src="/pouchdb.min.js"></script>
 
 <script>
@@ -81,46 +82,36 @@ $(document).ready(function(){
 
 var html = '';
 var count = 0;
-var timeseries = [];
 var scores = [];
-var dates = [];
 
-var barColors = [];
 var extremeColor = '#D9534F';
 var moderateColor = '#F0AD4E';
 var mildColor = '#5CB85C';
 var barColor = '';
 
 var db = new PouchDB('inventories');
+
 db.allDocs({include_docs: true, descending: true}, function(err, doc) {
 	doc.rows.forEach(function(e,index){
-		//d = new Date(parseInt(e.doc['date'])).toDateString();
+		
 		var options = { month: 'short', day: 'numeric' }
 		d = new Date(parseInt(e.doc['date'])).toLocaleDateString("en-US", options);
 		total = e.doc['score'];
-		level = "bg-success";
-		if(total>=20 && total<25) {
-			level = "bg-warning";
-		}
-		if(total>=25 && total<30) {
-			level = "bg-danger";
-		}
-		if(total>=30) {
-			level = "bg-dark";
-		}
+		level = getLevel(total);
 		width = parseInt(total) * 2;
-		html += '<div style="border-radius: 5px; height: 50px; width:' + width  + '%;" class="assessment p-2 text-white '+ level +'">';
-		html += '<a class="invdel float-left mt-1 mr-2 mb-0 mr-0" href="#'+parseInt(e.doc['date'])+'" style="color:#FFF">x</a>';
-		//html += '<a class="answers float-left mt-1 mr-2 mb-0 mr-0" href="#'+parseInt(e.doc['date'])+'" style="color:#FFF">&bull;</a>';
-		
-		html += '<a href="#" data-toggle="modal" data-target="#answersModal" data-key="' + parseInt(e.doc['date']) + '"';
-		html += 'class="score float-right" style="color:#FFF;display: inline-block;height: 20px; width: 20px; font-size: 24px; margin-right: 10px; text-align: right;">' + total + '</a>';
-		html += '<small class="text-center " style="display: inline-block; margin-top: 6px; line-height: 1em; text-align: center; text-transform: uppercase; width: 20px;">' + d  + '</small>';
-		//'<br>' + e.doc['diagnoses'] + '</small>';
+		html += '<div style="border-radius: 5px; height: 50px; width:' + width;
+		html += '%;" class="assessment p-2 text-white '+ level +'">';
+		html += '<a class="invdel float-left mt-1 mr-2 mb-0 mr-0" href="#';
+		html += parseInt(e.doc['date']) + '" style="color:#FFF">x</a>';
+		html += '<a href="#" data-toggle="modal" data-target="#answersModal" data-key="';
+		html += parseInt(e.doc['date']) + '"';
+		html += 'class="score float-right" style="color:#FFF;display: inline-block;height: 20px;';
+		html += 'width: 20px; font-size: 24px; margin-right: 10px; text-align: right;">';
+		html += total + '</a>';
+		html += '<small class="text-center " style="display: inline-block; margin-top: 6px; ';
+		html += 'line-height: 1em; text-align: center; text-transform: uppercase; width: 20px;">';
+		html += d  + '</small>';
 		html += '</div>';
-		timeseries.push({x: parseInt(e.doc['date']), y: e.doc['score']});
-		barColors.push(barColor);
-		dates.push(d);
 		scores.push(e.doc['score']);
 		count++;
 	});
@@ -128,8 +119,6 @@ db.allDocs({include_docs: true, descending: true}, function(err, doc) {
 		html = '<div class="alert alert-dark mb-3" role="alert">No results to show yet.</div>';
 	}
 	$('.results').html(html);
-	inventories = JSON.stringify(timeseries);
-	inventories = inventories.replace(/\"([^(\")"]+)\":/g,"$1:");
 	$('[data-toggle="tooltip"]').tooltip();
 
 });
@@ -159,16 +148,20 @@ $('#answersModal').on('show.bs.modal', function (event) {
 		console.log(doc);
 		var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'  }
 		coolDate = new Date(parseInt(doc.date)).toLocaleDateString("en-US", options);
-		tbl = '<h5>' + doc.diagnoses + '</h5>';
+		l = getLevel(doc.score);
+		tbl = '<h3 class="rounded p-3 m-3 ' + l + ' text-white text-center ">' + doc.diagnoses + '</h3>';
 		tbl += '<table class="table bg-white">';
+		var qu = 0;
 		doc.answers.forEach(function(e,index){
 			width = parseInt(e.value) * 20;
 			ans = parseInt(e.value);
 			sayit = getAnswer(ans);
-			tbl += '<div>';
-			tbl += e.name + ' - ' + sayit;
+			q = getQuestion(qu);
+			tbl += '<div class="mb-2">';
+			tbl += '<strong>' + q + '</strong>';
+			tbl += '<div class="" style="margin-left: 20px;">' + sayit + '</div>';
 			tbl += '</div>';
-			//tbl += '<tr><td>' + e.name + '</td><td>' + e.value + '</td></tr>';
+			qu++;
 		});
 		tbl += '</table>';
 		
@@ -187,26 +180,44 @@ function getAnswer(i) {
 			'Slightly more than half the time',
 			'Most of the time',
 			'All the time'];
+
 	return answers[i];
 
 }
 function getQuestion(i) {
 	
-	var questions = ['low-spirits',
-			'lost-interest',
-			'lacking-energy',
-			'less-self-confident',
-			'bad-conscience',
-			'not-worth-living',
-			'difficulty-concentrating',
-			'very-restless',
-			'subdued-or-slowed',
-			'trouble-sleeping',
-			'reduced-appetite',
-			'increased-appetite'];
+	var questions = ['1. Have you felt low in spirits or sad?',
+			'2. Have you lost interest in your daily activities?',
+			'3. Have you felt lacking in energy and strength?',
+			'4. Have you felt less self-confident?',
+			'5. Have you had a bad conscience or feelings of guilt?',
+			'6. Have you felt that life wasn’t worth living?',
+			'7. Have you had difficulty in concentrating?',
+			'8. a) Have you felt very restless?',
+			'8. b)Have you felt subdued or slowed down?',
+			'9. Have you had trouble sleeping at night?',
+			'10. a)Have you suffered from reduced appetite?',
+			'10. b)Have you suffered from increased appetite?'];
+
+	return questions[i];
 
 }
 });
+function getLevel(total) {
+
+	level = "bg-success";
+	if(total>=20 && total<25) {
+		level = "bg-warning";
+	}
+	if(total>=25 && total<30) {
+		level = "bg-danger";
+	}
+	if(total>=30) {
+		level = "bg-dark";
+	}
+	return level;
+	
+}
 </script>
 </body>
 </html>
