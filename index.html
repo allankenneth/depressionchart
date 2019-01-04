@@ -82,18 +82,10 @@ $(document).ready(function(){
 
 var html = '';
 var count = 0;
-var scores = [];
-
-var extremeColor = '#D9534F';
-var moderateColor = '#F0AD4E';
-var mildColor = '#5CB85C';
-var barColor = '';
-
 var db = new PouchDB('inventories');
-
 db.allDocs({include_docs: true, descending: true}, function(err, doc) {
 	doc.rows.forEach(function(e,index){
-		
+
 		var options = { month: 'short', day: 'numeric' }
 		d = new Date(parseInt(e.doc['date'])).toLocaleDateString("en-US", options);
 		total = e.doc['score'];
@@ -112,26 +104,23 @@ db.allDocs({include_docs: true, descending: true}, function(err, doc) {
 		html += 'line-height: 1em; text-align: center; text-transform: uppercase; width: 20px;">';
 		html += d  + '</small>';
 		html += '</div>';
-		scores.push(e.doc['score']);
 		count++;
 	});
 	if(count==0) {
 		html = '<div class="alert alert-dark mb-3" role="alert">No results to show yet.</div>';
 	}
 	$('.results').html(html);
-	$('[data-toggle="tooltip"]').tooltip();
 
 });
 
 
 $('body').on('click','a.invdel',function(e){
 	e.preventDefault();
-	//$(this).parents('.assessment').tooltip('disable');
 	mydoc = $(this).attr('href');
 	docid = mydoc.split('#');
 	did = docid[1];
 	db.get(did).then(function (doc) {
-	  return db.remove(doc);
+		return db.remove(doc);
 	});
 	$(this).parents('.assessment').remove();
 });
@@ -142,7 +131,6 @@ $('#answersModal').on('show.bs.modal', function (event) {
 
 	var button = $(event.relatedTarget);
 	var did = button.data('key').toString(); 
-	console.log(did);
 	db.get(did).then(function (doc) {
 		
 		console.log(doc);
