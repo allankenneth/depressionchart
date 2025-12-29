@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <title>Depression Chart</title>
@@ -27,48 +27,68 @@ body {
   color: #333;
     }
   }
-  label {color: #666; display: block;}
+  label {color: #888; display: block;}
   .nav-link {padding: .3em;}
   .question {margin: 3em 0;}
   .questiontext {font-size: 1.6em; font-weight: 200; margin: 0 0 .5em 0;}
+  .skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: #000;
+    color: #fff;
+    padding: 8px;
+    z-index: 1100;
+    text-decoration: none;
+  }
+  .skip-link:focus {
+    top: 0;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
   </style>
 </head>
 <body>
-<nav id="inventory-questions" class="navbar fixed-top navbar-dark text-white bg-faded" style="background-color: #000">
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<nav id="inventory-questions" class="navbar fixed-top navbar-dark text-white bg-faded" style="background-color: #000" aria-label="Main navigation">
 	<span class="navbar-brand">Depression Chart</span>
 </nav>
-<div class="container">
+<main id="main-content" class="container">
 <div class="row nogutter justify-content-md-center">
 <div class="col-md-8 col-lg-6">
+	<h1 class="sr-only">Depression Chart - Track Your Mental Health</h1>
 	<a href="questionnaire.html" class="mt-0 mb-3 bounce-top btn btn-primary btn-lg btn-block">Answer the Questions</a>
-	<div class="mb-0 results"></div>
-	<div class="row mx-0 mb-0 mt-0">
-		<div style="border-top-left-radius: 5px; " class="col p-0 text-white bg-success"></div>
-		<div class="col p-0 text-white bg-success">5</div>
-		<div class="col p-0 text-white bg-success">10</div>
-		<div class="col p-0 text-white bg-success">15</div>
-		<div class="col p-0 text-white bg-warning">20</div>
-		<div class="col p-0 text-white bg-danger">25</div>
-		<div class="col p-0 text-white bg-inverse">30</div>
-		<div class="col p-0 text-white bg-inverse">35</div>
-		<div class="col p-0 text-white bg-inverse">40</div>
-		<div style="border-top-right-radius: 5px" class="col p-0 text-white bg-inverse">45</div>
-	</div>
-	<div class="row mx-0 mb-3 text-center" style="font-size: 10px">
-		<div style="border-bottom-left-radius: 5px" class="col text-white bg-success">Not</div>
-		<div class="col text-white bg-warning">Mild</div>
-		<div class="col text-white bg-danger">Moderate</div>
-		<div style="border-bottom-right-radius: 5px" class="col text-white bg-inverse">Severe</div>
+	<div class="mb-0 results" role="region" aria-live="polite" aria-label="Your assessment history"></div>
+	<div role="img" aria-label="Score scale from 0 to 50: 0-19 is Not Depressed (green), 20-24 is Mild (yellow), 25-29 is Moderate (red), 30-50 is Severe (dark)">
+		<div class="row mx-0 mb-0 mt-0" aria-hidden="true">
+			<div style="border-top-left-radius: 5px; " class="col p-0 text-white bg-success"></div>
+			<div class="col p-0 text-white bg-success">5</div>
+			<div class="col p-0 text-white bg-success">10</div>
+			<div class="col p-0 text-white bg-success">15</div>
+			<div class="col p-0 text-white bg-warning">20</div>
+			<div class="col p-0 text-white bg-danger">25</div>
+			<div class="col p-0 text-white bg-inverse">30</div>
+			<div class="col p-0 text-white bg-inverse">35</div>
+			<div class="col p-0 text-white bg-inverse">40</div>
+			<div style="border-top-right-radius: 5px" class="col p-0 text-white bg-inverse">45</div>
+		</div>
+		<div class="row mx-0 mb-3 text-center" style="font-size: 10px" aria-hidden="true">
+			<div style="border-bottom-left-radius: 5px" class="col text-white bg-success">Not</div>
+			<div class="col text-white bg-warning">Mild</div>
+			<div class="col text-white bg-danger">Moderate</div>
+			<div style="border-bottom-right-radius: 5px" class="col text-white bg-inverse">Severe</div>
+		</div>
 	</div>
 	<p><a href="questionnaire.html">Answer these 14 questions</a>, and your device stores your assessment. Come back in two weeks and take the test again. Your device remembers your previous scores, and as you keep taking the test a chart emerges that shows your results and how they've evolved over time.</p> 
-	<p><em>Note that your information is not transmitted over a network</em>; your assessment is calculated on your device and is stored there too. 
-	<!--<a href="https://github.com/allankenneth/depressiongraph2">The source code is on Github</a>, and is -->
-
+	<p><em>Note that your information is not transmitted over a network</em>; your assessment is calculated on your device and is stored there too.</p>
 	<p><a href="https://allankenneth.com">Made by Allan</a>, based on the <a href="https://en.wikipedia.org/wiki/Major_Depression_Inventory">Major Depression Inventory</a>.</p>
 	</div>
-</div> <!-- /.container -->
-
 </div>
+</main>
 <script src="jquery.min.js"></script>
 <script src="tether.min.js"></script>
 <script src="bootstrap.min.js"></script>
@@ -112,9 +132,9 @@ db.allDocs({include_docs: true, descending: true}, function(err, doc) {
 			level = "bg-inverse";
 		}
 		width = parseInt(total) * 2;
-		html += '<div style="border-radius: 5px; height: 50px; width:' + width  + '%;" class="assessment p-2 text-white '+ level +'">';
-		html += '<a class="invdel float-left mt-1 mr-2 mb-0 mr-0" href="#'+parseInt(e.doc['date'])+'" style="color:#FFF">x</a>';
-		html += '<span class="score float-right" style="display: inline-block;height: 20px; width: 20px; font-size: 24px; margin-right: 10px; text-align: center;">' + total + '</span>';
+		html += '<div style="border-radius: 5px; height: 50px; width:' + width  + '%;" class="assessment p-2 text-white '+ level +'" role="listitem">';
+		html += '<button type="button" class="invdel float-left mt-1 mr-2 mb-0 mr-0 btn btn-link p-0" data-id="'+parseInt(e.doc['date'])+'" style="color:#FFF" aria-label="Delete assessment from ' + d + '"><span aria-hidden="true">&times;</span></button>';
+		html += '<span class="score float-right" style="display: inline-block;height: 20px; width: 20px; font-size: 24px; margin-right: 10px; text-align: center;" aria-label="Score: ' + total + '">' + total + '</span>';
 		html += '<small class="text-truncate" style="display: inline-block; margin-top: 8px;">' + d  + '</small>';
 		//'<br>' + e.doc['diagnoses'] + '</small>';
 		html += '</div>';
@@ -135,15 +155,15 @@ db.allDocs({include_docs: true, descending: true}, function(err, doc) {
 });
 
 
-$('body').on('click','a.invdel',function(e){
+$('body').on('click','button.invdel',function(e){
 	e.preventDefault();
-	mydoc = $(this).attr('href');
-	docid = mydoc.split('#');
-	did = docid[1];
+	var did = $(this).data('id').toString();
+	var $assessment = $(this).parents('.assessment');
 	db.get(did).then(function (doc) {
 	  return db.remove(doc);
+	}).then(function() {
+	  $assessment.remove();
 	});
-	$(this).parents('.assessment').remove();
 });
 
 });

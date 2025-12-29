@@ -1,8 +1,8 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Depression Graph</title>
+  <title>Depression Chart - About</title>
   <meta name="description" content="Depression Graph: Keep track of your major depression inventories. Track, share, get better.">
   <meta name="author" content="Allan Haggett">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,10 +17,29 @@
 
   <style>
   body {padding: 6em 0; position: relative;}
-  label {color: #666; display: block;}
+  label {color: #555; display: block;}
   .nav-link {padding: .3em;}
   .question {margin: 3em 0;}
   .questiontext {font-size: 1.6em; font-weight: 200; margin: 0 0 .5em 0;}
+  .skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: #000;
+    color: #fff;
+    padding: 8px;
+    z-index: 1100;
+    text-decoration: none;
+  }
+  .skip-link:focus {
+    top: 0;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 .bounce-top {
 	-webkit-animation: bounce-top 0.9s both;
 	        animation: bounce-top 0.9s both;
@@ -169,16 +188,16 @@
   </style>
 </head>
 <body class="fade-in">
-
-  <nav id="inventory-questions" class="navbar fixed-top navbar-light bg-faded">
-    <span class="navbar-brand">Depression Graph</span>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+  <nav id="inventory-questions" class="navbar fixed-top navbar-light bg-faded" aria-label="Main navigation">
+    <span class="navbar-brand">Depression Chart</span>
   </nav>
-<div class="container">
+<main id="main-content" class="container">
 <div class="jumbotron">
 <a href="questionnaire.html" class="bounce-top btn btn-primary btn-lg btn-block">Answer Questionnaire</a>
 
 <div id="chart"></div>
-<div class="results"></div>
+<div class="results" role="region" aria-live="polite" aria-label="Your assessment history"></div>
 </div>
 <div class="row">
     <div class="col-sm-12">
@@ -210,7 +229,7 @@
     <div class="col">
 </div>
 </div>
-</div> <!-- /.container -->
+</main>
 <hr>
 <script src="/jquery.min.js"></script>
 <script src="/tether.min.js"></script>
